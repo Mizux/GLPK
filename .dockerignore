@@ -1,0 +1,46 @@
+.dockerignore
+
+# Project Files unneeded by docker
+.git
+.gitignore
+.github
+.clang-format
+
+ci/Makefile
+ci/docker
+ci/doc
+ci/cache
+ci/export
+
+AUTHORS
+COPYING
+CONTRIBUTING.md
+CONTRIBUTORS
+INSTALL
+LICENSE
+NEWS
+README
+THANKS
+Makefile.*
+doc
+m4
+w32
+w64
+aclocal.m4
+autogen.sh
+Changelog
+config.*
+configure*
+depcomp
+install-sh
+ltmain.sh
+missing
+setup.job
+
+# Native cmake build
+build/
+build*/
+
+# Editor directories and files
+*.user
+*.swp
