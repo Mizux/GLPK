@@ -1,3 +1,18 @@
+Github-CI:
+[![Build Status][github_docker_status]][github_docker_link]
+[![Build Status][github_linux_status]][github_linux_link]
+[![Build Status][github_macos_status]][github_macos_link]
+[![Build Status][github_windows_status]][github_windows_link]
+
+[github_docker_status]: https://github.com/Mizux/GLPK/actions/workflows/amd64_docker.yml/badge.svg
+[github_docker_link]: https://github.com/Mizux/GLPK/actions/workflows/amd64_docker.yml
+[github_linux_status]: https://github.com/Mizux/GLPK/actions/workflows/amd64_linux.yml/badge.svg
+[github_linux_link]: https://github.com/Mizux/GLPK/actions/workflows/amd64_linux.yml
+[github_macos_status]: https://github.com/Mizux/GLPK/actions/workflows/amd64_macos.yml/badge.svg
+[github_macos_link]: https://github.com/Mizux/GLPK/actions/workflows/amd64_macos.yml
+[github_windows_status]: https://github.com/Mizux/GLPK/actions/workflows/amd64_windows.yml/badge.svg
+[github_windows_link]: https://github.com/Mizux/GLPK/actions/workflows/amd64_windows.yml
+
 GLPK (GNU Linear Programming Kit) Version 5.0
 Copyright (C) 2000-2020 Free Software Foundation, Inc.
 
