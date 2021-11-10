@@ -1,0 +1,12 @@
+target_sources(GLPK
+  PRIVATE
+    mpl1.c
+    mpl2.c
+    mpl3.c
+    mpl4.c
+    mpl5.c
+    mpl6.c
+    mpl.h
+    mplsql.c
+    mplsql.h
+)

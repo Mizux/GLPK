@@ -1,0 +1,25 @@
+target_sources(GLPK
+  PRIVATE
+    btf.c
+    btf.h
+    btfint.c
+    btfint.h
+    fhv.c
+    fhv.h
+    fhvint.c
+    fhvint.h
+    ifu.c
+    ifu.h
+    luf.c
+    luf.h
+    lufint.c
+    lufint.h
+    scf.c
+    scf.h
+    scfint.c
+    scfint.h
+    sgf.c
+    sgf.h
+    sva.c
+    sva.h
+)

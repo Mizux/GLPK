@@ -1,0 +1,15 @@
+target_sources(GLPK
+  PRIVATE
+    cfg1.c
+    cfg2.c
+    cfg.c
+    cfg.h
+    clqcut.c
+    covgen.c
+    fpump.c
+    gmicut.c
+    gmigen.c
+    mirgen.c
+    spv.c
+    spv.h
+)

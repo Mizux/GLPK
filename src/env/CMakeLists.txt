@@ -1,0 +1,14 @@
+target_sources(GLPK
+  PRIVATE
+    alloc.c
+    dlsup.c
+    env.c
+    env.h
+    error.c
+    stdc.c
+    stdc.h
+    stdout.c
+    stream.c
+    time.c
+    tls.c
+)

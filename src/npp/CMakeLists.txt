@@ -1,0 +1,10 @@
+target_sources(GLPK
+  PRIVATE
+    npp1.c
+    npp2.c
+    npp3.c
+    npp4.c
+    npp5.c
+    npp6.c
+    npp.h
+)

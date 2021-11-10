@@ -1,0 +1,22 @@
+target_sources(GLPK
+  PRIVATE
+  simplex.h
+  spxat.c
+  spxat.h
+  spxchuzc.c
+  spxchuzc.h
+  spxchuzr.c
+  spxchuzr.h
+  spxlp.c
+  spxlp.h
+  spxnt.c
+  spxnt.h
+  spxprim.c
+  spxprob.c
+  spxprob.h
+  spychuzc.c
+  spychuzc.h
+  spychuzr.c
+  spychuzr.h
+  spydual.c
+)
