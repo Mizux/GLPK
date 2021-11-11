@@ -84,7 +84,7 @@ endif()
 
 option(ODBC "enable MathProg ODBC support" OFF)
 if(ODBC)
-  include(FindODBC)
+  find_package(ODBC)
   if(ODBC_FOUND)
     if(ODBC_CONFIG)
       execute_process(COMMAND "${ODBC_CONFIG} --cflags"
