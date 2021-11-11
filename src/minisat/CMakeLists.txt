@@ -3,3 +3,9 @@ target_sources(GLPK
     minisat.c
     minisat.h
 )
+
+target_sources(GLPSOL
+    PRIVATE
+        minisat.c
+        minisat.h
+)

@@ -31,3 +31,37 @@ target_sources(GLPK
     lux.c
     lux.h
 )
+
+target_sources(GLPSOL
+    PRIVATE
+        bfd.c
+        bfd.h
+        bfx.c
+        bfx.h
+        draft.h
+        glpapi06.c
+        glpapi07.c
+        glpapi08.c
+        glpapi09.c
+        glpapi10.c
+        glpapi12.c
+        glpapi13.c
+        glpios01.c
+        glpios02.c
+        glpios03.c
+        glpios07.c
+        glpios09.c
+        glpios11.c
+        glpios12.c
+        glpipm.c
+        glpipm.h
+        glpmat.c
+        glpmat.h
+        glpscl.c
+        glpssx01.c
+        glpssx02.c
+        glpssx.h
+        ios.h
+        lux.c
+        lux.h
+)

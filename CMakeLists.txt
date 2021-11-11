@@ -67,6 +67,10 @@ include(CTest)
 
 include(c)
 
+option(BUILD_EXAMPLES "Build examples" ON)
+message(STATUS "Build examples: ${BUILD_EXAMPLES}")
+add_subdirectory(examples)
+
 option(WITH_GMP "use GNU MP bignum library" OFF)
 if(WITH_GMP)
   find_package(GMP)
@@ -137,7 +141,3 @@ if(IS_REENTRANT)
   endif()
   add_compile_definitions(TLS=${TLS})
 endif()
-
-option(BUILD_EXAMPLES "Build examples" ON)
-message(STATUS "Build examples: ${BUILD_EXAMPLES}")
-add_subdirectory(examples)

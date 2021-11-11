@@ -3,3 +3,9 @@ target_sources(GLPK
     colamd.c
     colamd.h
 )
+
+target_sources(GLPSOL
+    PRIVATE
+        colamd.c
+        colamd.h
+)
