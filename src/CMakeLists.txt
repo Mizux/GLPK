@@ -58,12 +58,12 @@ if(NOT HAVE_EXP)
 endif()
 
 # sys/time.h
-include(CheckIncludeFile)
-check_include_file(sys/time.h HAS_TIME_H)
-if(HAS_TIME_H)
-    add_compile_definitions(HAVE_SYS_TIME_H=1)
-else()
-    add_compile_definitions(HAVE_SYS_TIME_H=N/A)
+if(NOT MSVC)
+    include(CheckIncludeFile)
+    check_include_file(sys/time.h HAS_TIME_H)
+    if(HAS_TIME_H)
+        add_compile_definitions(HAVE_SYS_TIME_H=1)
+    endif()
 endif()
 
 # gettimeofday function
@@ -71,8 +71,6 @@ include(CheckFunctionExists)
 check_function_exists(gettimeofday, HAVE_GETTIMEOFDAY_FUNC)
 if(HAVE_GETTIMEOFDAY_FUNC)
     add_compile_definitions(HAVE_GETTIMEOFDAY=1)
-else()
-    add_compile_definitions(HAVE_GETTIMEOFDAY=N/A)
 endif()
 
 #add_subdirectory(tests)
