@@ -23,29 +23,3 @@ target_sources(GLPK
     sva.c
     sva.h
 )
-
-target_sources(GLPSOL
-    PRIVATE
-        btf.c
-        btf.h
-        btfint.c
-        btfint.h
-        fhv.c
-        fhv.h
-        fhvint.c
-        fhvint.h
-        ifu.c
-        ifu.h
-        luf.c
-        luf.h
-        lufint.c
-        lufint.h
-        scf.c
-        scf.h
-        scfint.c
-        scfint.h
-        sgf.c
-        sgf.h
-        sva.c
-        sva.h
-)

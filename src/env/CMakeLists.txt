@@ -12,18 +12,3 @@ target_sources(GLPK
     time.c
     tls.c
 )
-
-target_sources(GLPSOL
-    PRIVATE
-        alloc.c
-        dlsup.c
-        env.c
-        env.h
-        error.c
-        stdc.c
-        stdc.h
-        stdout.c
-        stream.c
-        time.c
-        tls.c
-)

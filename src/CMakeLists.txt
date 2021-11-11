@@ -1,12 +1,5 @@
 add_library(GLPK)
-add_executable(GLPSOL)
 target_sources(GLPK PRIVATE glpk.h)
-target_sources(GLPSOL
-    PRIVATE
-        ${CMAKE_SOURCE_DIR}/examples/glpsol.c
-    PRIVATE
-        glpk.h
-)
 add_subdirectory(amd)
 add_subdirectory(api)
 add_subdirectory(bflib)
@@ -48,45 +41,6 @@ target_link_libraries(GLPK
   PRIVATE
   $<$<NOT:$<C_COMPILER_ID:MSVC>>:m>)
 add_library(${PROJECT_NAMESPACE}::GLPK ALIAS GLPK)
-
-target_include_directories(GLPSOL
-    PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/amd>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/api>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/bflib>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/colamd>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/draft>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/env>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/intopt>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/minisat>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/misc>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/mpl>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/npp>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/proxy>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/simplex>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/zlib>
-        $<INSTALL_INTERFACE:include>)
-target_compile_features(GLPSOL PUBLIC c_std_11)
-set_target_properties(GLPSOL PROPERTIES
-        VERSION ${PROJECT_VERSION}
-        PUBLIC_HEADER glpk.h) # not sure about this one
-target_link_libraries(GLPSOL
-        PRIVATE
-        $<$<NOT:$<C_COMPILER_ID:MSVC>>:m>)
-add_executable(${PROJECT_NAMESPACE}::GLPSOL ALIAS GLPSOL)
-add_test(
-    NAME
-        glpsol_version
-    COMMAND
-       GLPSOL  --version
-)
-add_test(
-    NAME
-        glpsol_solve
-    COMMAND
-        GLPSOL --mps ${CMAKE_SOURCE_DIR}/examples/murtagh.mps --max
-)
 
 # check system libs functions and headers
 # m::exp

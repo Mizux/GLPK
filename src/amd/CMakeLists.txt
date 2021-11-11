@@ -15,21 +15,3 @@ target_sources(GLPK
     amd_preprocess.c
     amd_valid.c
 )
-
-target_sources(GLPSOL
-        PRIVATE
-        amd_1.c
-        amd_2.c
-        amd_aat.c
-        amd_control.c
-        amd_defaults.c
-        amd_dump.c
-        amd.h
-        amd_info.c
-        amd_internal.h
-        amd_order.c
-        amd_postorder.c
-        amd_post_tree.c
-        amd_preprocess.c
-        amd_valid.c
-)

@@ -8,14 +8,3 @@ target_sources(GLPK
     npp6.c
     npp.h
 )
-
-target_sources(GLPSOL
-    PRIVATE
-        npp1.c
-        npp2.c
-        npp3.c
-        npp4.c
-        npp5.c
-        npp6.c
-        npp.h
-)
