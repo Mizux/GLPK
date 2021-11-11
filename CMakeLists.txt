@@ -112,6 +112,7 @@ if(ODBC)
   endif()
 endif()
 
+include(CMakeDependentOption)
 cmake_dependent_option(MYSQL "enable MathProg MySQL support" OFF "SHARED_LIB" OFF)
 if(MYSQL)
   find_package(MySQL)

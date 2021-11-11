@@ -44,6 +44,7 @@ add_library(${PROJECT_NAMESPACE}::GLPK ALIAS GLPK)
 
 # check system libs functions and headers
 # m::exp
+include(CheckSymbolExists)
 check_symbol_exists(exp "math.h" HAVE_EXP)
 if(NOT HAVE_EXP)
     unset(HAVE_EXP CACHE)
@@ -57,6 +58,7 @@ if(NOT HAVE_EXP)
 endif()
 
 # sys/time.h
+include(CheckIncludeFile)
 check_include_file(sys/time.h HAS_TIME_H)
 if(HAS_TIME_H)
     add_compile_definitions(HAVE_SYS_TIME_H=1)
@@ -65,6 +67,7 @@ else()
 endif()
 
 # gettimeofday function
+include(CheckFunctionExists)
 check_function_exists(gettimeofday, HAVE_GETTIMEOFDAY_FUNC)
 if(HAVE_GETTIMEOFDAY_FUNC)
     add_compile_definitions(HAVE_GETTIMEOFDAY=1)
