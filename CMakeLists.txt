@@ -136,7 +136,7 @@ if(IS_REENTRANT)
   elseif (CMAKE_C_COMPILER_ID STREQUAL "MSVC")
     set(TLS "__declspec(thread)")
   else()
-    set(TLS "_Thread_local") # default to C11 standard, may break some builds if TLS isn't supported
+    set(TLS "_Thread_local") # default to C11 standard, may break some builds if thread local storage isn't supported
   endif()
   add_compile_definitions(TLS=${TLS})
 endif()
