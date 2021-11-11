@@ -15,6 +15,20 @@ add_executable(${PROJECT_NAMESPACE}::glpsol ALIAS glpsol)
 install(TARGETS glpsol
   EXPORT ${PROJECT_NAME}Targets)
 
+# GPSOL tests
+add_test(
+        NAME
+        glpsol_version
+        COMMAND
+        GLPSOL  --version
+)
+add_test(
+        NAME
+        glpsol_solve
+        COMMAND
+        GLPSOL --mps ${CMAKE_SOURCE_DIR}/examples/murtagh.mps --max
+)
+
 if(NOT BUILD_EXAMPLES)
   return()
 endif()
