@@ -27,13 +27,13 @@ if( WIN32 )
     find_path( MYSQL_INCLUDE_DIR
             NAMES "mysql.h"
             PATHS "$ENV{PROGRAMFILES}/MySQL/*/include"
-            "$ENV{PROGRAMFILES(x86)}/MySQL/*/include"
+            "$ENV{PROGRAMFILES\(x86\)}/MySQL/*/include"
             "$ENV{SYSTEMDRIVE}/MySQL/*/include" )
 
     find_library( MYSQL_LIBRARY
             NAMES "mysqlclient" "mysqlclient_r"
             PATHS "$ENV{PROGRAMFILES}/MySQL/*/lib"
-            "$ENV{PROGRAMFILES(x86)}/MySQL/*/lib"
+            "$ENV{PROGRAMFILES\(x86\)}/MySQL/*/lib"
             "$ENV{SYSTEMDRIVE}/MySQL/*/lib" )
 else()
     find_path( MYSQL_INCLUDE_DIR
@@ -53,8 +53,6 @@ else()
             "/usr/mysql/lib/mysql"
             "/usr/mysql/lib64/mysql" )
 endif()
-
-
 
 if( MYSQL_INCLUDE_DIR AND EXISTS "${MYSQL_INCLUDE_DIRS}/mysql_version.h" )
     file( STRINGS "${MYSQL_INCLUDE_DIRS}/mysql_version.h"
