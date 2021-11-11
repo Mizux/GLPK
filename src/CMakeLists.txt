@@ -43,19 +43,6 @@ target_link_libraries(GLPK
 add_library(${PROJECT_NAMESPACE}::GLPK ALIAS GLPK)
 
 # check system libs functions and headers
-# m::exp
-include(CheckSymbolExists)
-check_symbol_exists(exp "math.h" HAVE_EXP)
-if(NOT HAVE_EXP)
-    unset(HAVE_EXP CACHE)
-    list(APPEND CMAKE_REQUIRED_LIBRARIES "m")
-    check_symbol_exists(exp "math.h" HAVE_EXP)
-    if(HAVE_EXP)
-        target_link_libraries(GLPK PRIVATE m)
-    else()
-        message(FATAL_ERROR "exp function not found")
-    endif()
-endif()
 
 # sys/time.h
 if(NOT MSVC)
