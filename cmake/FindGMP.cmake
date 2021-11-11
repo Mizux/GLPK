@@ -43,7 +43,7 @@ find_library( GMP_LIBRARY
             "/usr/lib64"
             "/usr/local/lib"
             "/usr/local/lib64"
-            "C:\\Windows\\System32"
+            "$ENV{SYSTEMDRIVE}/Windows/System32"
         )
 if (GMP_LIBRARY)
     set(GMP_INCLUDE_DIR ../include)

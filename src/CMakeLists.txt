@@ -3,7 +3,7 @@ add_executable(GLPSOL)
 target_sources(GLPK PRIVATE glpk.h)
 target_sources(GLPSOL
     PRIVATE
-        ../examples/glpsol.c
+        ${CMAKE_SOURCE_DIR}/examples/glpsol.c
     PRIVATE
         glpk.h
 )
