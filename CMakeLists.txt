@@ -67,6 +67,78 @@ include(CTest)
 
 include(c)
 
+set(CMAKE_MODULE_PATH ".")
+
+option(WITH_GMP "use GNU MP bignum library" OFF)
+if(WITH_GMP)
+  find_package(GMP)
+  if(GMP_FOUND)
+    target_include_directories(GLPK GMP_INCLUDE_DIRS)
+    target_link_libraries(GLPK GMP_LIBRARIES)
+  else()
+    message(FATAL_ERROR "gmp.h/libgmp not found")
+  endif()
+endif()
+
+option(ODBC "enable MathProg ODBC support")
+if(ODBC)
+  include(FindODBC)
+  if(ODBC_FOUND)
+    if(ODBC_CONFIG)
+      execute_process(COMMAND "${ODBC_CONFIG} --cflags"
+              RESULT_VARIABLE ODBC_RESULT
+              OUTPUT_VARIABLE ODBC_OUTPUT
+              ERROR_VARIABLE ODBC_ERROR)
+      if(ODBC_OUTPUT AND (NOT ODBC_ERROR))
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${ODBC_OUTPUT}")
+      elseif(ODBC_ERROR)
+        message(FATAL_ERROR "'${ODBC_CONFIG} --cflags' returned ${ODBC_RESULT}: ${ODBC_ERROR}")
+      else()
+        message(FATAL_ERROR "'${ODBC_CONFIG} --cflags' produced no output")
+      endif()
+    else()
+      message(FATAL_ERROR "Could not run 'odbc-config --cflags' or 'iodbc-config --cflags'")
+    endif()
+    string(REGEX MATCH "/[^/\\]+$/gm" GMP_LIB_NAME "${GMP_LIBRARIES}") # regexr.com/698ls strips the preceding path from the actual lib name
+    if (GMP_LIB_NAME)
+      add_compile_definitions(ODBC_DLNAME=${GMP_LIB_NAME})
+      target_link_libraries(GLPK GMP_LIBRARIES)
+      target_include_directories(GLPK GMP_INCLUDE_DIRS)
+    else()
+      message(FATAL_ERROR "Could not determine ODBC/iODBC library name")
+    endif()
+  else()
+    message(FATAL_ERROR "ODBC/iODBC library not found")
+  endif()
+endif()
+
+cmake_dependent_option(MYSQL "enable MathProg MySQL support" OFF "SHARED_LIB" OFF)
+if(MYSQL)
+  find_package(MySQL)
+  if(MYSQL_FOUND)
+    target_link_libraries(GLPK GMP_LIBRARIES)
+    target_include_directories(GLPK MYSQL_INCLUDE_DIRS)
+  else()
+    message(FATAL_ERROR "MySQL not found")
+  endif()
+endif()
+
+option(IS_REENTRANT "enable reentrancy support" ON)
+if(IS_REENTRANT)
+  if (
+  (CMAKE_C_COMPILER_ID MATCHES "Clang") OR # matches AppleClang and Clang
+  (CMAKE_C_COMPILER_ID STREQUAL "GNU") OR
+  (CMAKE_C_COMPILER_ID STREQUAL "Intel")
+  )
+    set(TLS "__thread")
+  elseif (CMAKE_C_COMPILER_ID STREQUAL "MSVC")
+    set(TLS "__declspec(thread)")
+  else()
+    set(TLS "_Thread_local") # default to C11 standard, may break some builds if TLS isn't supported
+  endif()
+  add_compile_definitions(TLS=${TLS})
+endif()
+
 option(BUILD_EXAMPLES "Build examples" ON)
 message(STATUS "Build examples: ${BUILD_EXAMPLES}")
 add_subdirectory(examples)
