@@ -67,8 +67,6 @@ include(CTest)
 
 include(c)
 
-set(CMAKE_MODULE_PATH ".")
-
 option(WITH_GMP "use GNU MP bignum library" OFF)
 if(WITH_GMP)
   find_package(GMP)

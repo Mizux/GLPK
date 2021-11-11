@@ -46,7 +46,7 @@ find_library( GMP_LIBRARY
             "C:\\Windows\\System32"
         )
 if (GMP_LIBRARY)
-    set(GMP_INCLUDE_DIR include)
+    set(GMP_INCLUDE_DIR ../include)
 endif()
 
 # handle the QUIETLY and REQUIRED arguments and set GMP_FOUND to TRUE if
