@@ -42,6 +42,36 @@ target_link_libraries(GLPK
   $<$<NOT:$<C_COMPILER_ID:MSVC>>:m>)
 add_library(${PROJECT_NAMESPACE}::GLPK ALIAS GLPK)
 
+# check system libs functions and headers
+# m::exp
+check_symbol_exists(exp "math.h" HAVE_EXP)
+if(NOT HAVE_EXP)
+    unset(HAVE_EXP CACHE)
+    list(APPEND CMAKE_REQUIRED_LIBRARIES "m")
+    check_symbol_exists(exp "math.h" HAVE_EXP)
+    if(HAVE_EXP)
+        target_link_libraries(GLPK PRIVATE m)
+    else()
+        message(FATAL_ERROR "exp function not found")
+    endif()
+endif()
+
+# sys/time.h
+check_include_file(sys/time.h HAS_TIME_H)
+if(HAS_TIME_H)
+    add_compile_definitions(HAVE_SYS_TIME_H=1)
+else()
+    add_compile_definitions(HAVE_SYS_TIME_H=N/A)
+endif()
+
+# gettimeofday function
+check_function_exists(gettimeofday, HAVE_GETTIMEOFDAY_FUNC)
+if(HAVE_GETTIMEOFDAY_FUNC)
+    add_compile_definitions(HAVE_GETTIMEOFDAY=1)
+else()
+    add_compile_definitions(HAVE_GETTIMEOFDAY=N/A)
+endif()
+
 #add_subdirectory(tests)
 
 # Install
