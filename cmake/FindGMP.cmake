@@ -167,6 +167,12 @@ if(GMP_FOUND)
                 )
     endif()
 
+    set( GMP_INCLUDE_DIRS ${GMP_INCLUDE_DIR} )
+    set( GMP_LIBRARIES ${GMP_LIB} )
+
+    mark_as_advanced( GMP_INCLUDE_DIR GMP_LIB )
+
+
     # C++ library, which requires a link to the C library
     if(NOT TARGET GMP::gmpxx)
         add_library(GMP::gmpxx UNKNOWN IMPORTED)
@@ -176,4 +182,10 @@ if(GMP_FOUND)
                 INTERFACE_LINK_LIBRARIES GMP::gmp
                 )
     endif()
+
+    set( GMPXX_INCLUDE_DIRS ${GMPXX_INCLUDE_DIR} )
+    set( GMPXX_LIBRARIES ${GMPXX_LIB} )
+
+    mark_as_advanced( GMPXX_INCLUDE_DIR GMPXX_LIB )
+
 endif()
