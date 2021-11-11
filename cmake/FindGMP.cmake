@@ -45,9 +45,15 @@ find_library( GMP_LIBRARY
             "/usr/local/lib64"
             "$ENV{SYSTEMDRIVE}/Windows/System32"
         )
-if (GMP_LIBRARY)
-    set(GMP_INCLUDE_DIR ../include)
-endif()
+
+find_path( GMP_INCLUDE_DIR
+        NAMES
+            "gmp.h"
+        PATHS
+            "/usr/include/"
+            "/usr/local/include/"
+        #Windows doesn't have a default collection of header files, unfortunately
+        )
 
 # handle the QUIETLY and REQUIRED arguments and set GMP_FOUND to TRUE if
 # all listed variables are TRUE
