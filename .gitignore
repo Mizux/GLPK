@@ -8,6 +8,7 @@ cache/
 # IDE
 .vs/
 .cache/
+.idea/
 # Kdevelop
 .kdev4/
 *.kdev4
