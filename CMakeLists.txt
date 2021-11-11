@@ -82,7 +82,7 @@ if(WITH_GMP)
   endif()
 endif()
 
-option(ODBC "enable MathProg ODBC support")
+option(ODBC "enable MathProg ODBC support" OFF)
 if(ODBC)
   include(FindODBC)
   if(ODBC_FOUND)
