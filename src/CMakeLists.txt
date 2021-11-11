@@ -52,12 +52,12 @@ if(NOT MSVC)
         add_compile_definitions(HAVE_SYS_TIME_H=1)
     endif()
 endif()
-
-# gettimeofday function
-include(CheckFunctionExists)
-check_function_exists(gettimeofday, HAVE_GETTIMEOFDAY_FUNC)
-if(HAVE_GETTIMEOFDAY_FUNC)
-    add_compile_definitions(HAVE_GETTIMEOFDAY=1)
+if(HAS_TIME_H)
+    include(CheckSymbolExists)
+    check_symbol_exists(gettimeofday sys/time.h HAVE_GETTIMEOFDAY_FUNC)
+    if(HAVE_GETTIMEOFDAY_FUNC)
+        add_compile_definitions(HAVE_GETTIMEOFDAY=1)
+    endif()
 endif()
 
 #add_subdirectory(tests)
