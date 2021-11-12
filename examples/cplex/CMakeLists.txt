@@ -1,3 +1,6 @@
-include(examples)
+# This example folder requires external dependencies to build (see README)
+return()
 
-add_example_folder(${CMAKE_CURRENT_SOURCE_DIR})
+#include(examples)
+#
+#add_example_folder(${CMAKE_CURRENT_SOURCE_DIR})
