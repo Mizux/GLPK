@@ -18,15 +18,15 @@ install(TARGETS glpsol
 # GPSOL tests
 add_test(
         NAME
-        glpsol_version
+          glpsol_version
         COMMAND
-        GLPSOL  --version
+          glpsol  --version
 )
 add_test(
         NAME
-        glpsol_solve
+          glpsol_solve
         COMMAND
-        GLPSOL --mps ${CMAKE_SOURCE_DIR}/examples/murtagh.mps --max
+          glpsol --mps ${CMAKE_BINARY_DIR}/${CMAKE_CFG_INTDIR}/examples/murtagh.mps --max
 )
 
 if(NOT BUILD_EXAMPLES)
