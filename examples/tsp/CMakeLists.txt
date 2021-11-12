@@ -32,7 +32,11 @@ foreach(TEST_FILE IN LISTS TEST_FILES)
     if(NOT (IS_DIRECTORY ${TEST_FILE})) # `LIST_DIRECTORIES false` not reliable
         get_filename_component(TEST_TARGET_NAME ${TEST_FILE} NAME_WE)
         add_library(${TEST_TARGET_NAME} ${TEST_FILE})
-        target_include_directories(${TEST_TARGET_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+        target_include_directories(
+                ${TEST_TARGET_NAME}
+                PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+                PUBLIC ${CMAKE_SOURCE_DIR}/src
+                )
         target_compile_features(${TEST_TARGET_NAME} PRIVATE c_std_11)
         target_link_libraries(${TEST_TARGET_NAME} PRIVATE
                 $<$<NOT:$<C_COMPILER_ID:MSVC>>:m>)
@@ -43,7 +47,11 @@ foreach(TEST_FILE IN LISTS TEST_FILES)
 endforeach()
 
 add_library(tsplib tsplib.c)
-target_include_directories(tsplib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(
+        tsplib
+        PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+        PUBLIC ${CMAKE_SOURCE_DIR}/src
+)
 target_compile_features(tsplib PRIVATE c_std_11)
 target_link_libraries(tsplib PRIVATE
         ${PROJECT_NAMESPACE}::GLPK
@@ -55,7 +63,11 @@ install(TARGETS tsplib)
 set_target_properties(tsplib PROPERTIES PREFIX "")
 
 add_executable(tspsol main.c)
-target_include_directories(tspsol PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(
+        tspsol
+        PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+        PUBLIC ${CMAKE_SOURCE_DIR}/src
+)
 target_compile_features(tspsol PRIVATE c_std_11)
 target_link_libraries(tspsol PRIVATE
         ${PROJECT_NAMESPACE}::GLPK
