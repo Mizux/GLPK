@@ -35,10 +35,10 @@ foreach(TEST_FILE IN LISTS TEST_FILES)
         target_include_directories(
                 ${TEST_TARGET_NAME}
                 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
-                PUBLIC ${CMAKE_SOURCE_DIR}/src
                 )
         target_compile_features(${TEST_TARGET_NAME} PRIVATE c_std_11)
         target_link_libraries(${TEST_TARGET_NAME} PRIVATE
+                ${PROJECT_NAMESPACE}::GLPK
                 $<$<NOT:$<C_COMPILER_ID:MSVC>>:m>)
         add_library(${PROJECT_NAMESPACE}::${TEST_TARGET_NAME} ALIAS ${TEST_TARGET_NAME})
         install(TARGETS ${TEST_TARGET_NAME})
@@ -50,7 +50,6 @@ add_library(tsplib tsplib.c)
 target_include_directories(
         tsplib
         PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
-        PUBLIC ${CMAKE_SOURCE_DIR}/src
 )
 target_compile_features(tsplib PRIVATE c_std_11)
 target_link_libraries(tsplib PRIVATE
@@ -66,7 +65,6 @@ add_executable(tspsol main.c)
 target_include_directories(
         tspsol
         PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
-        PUBLIC ${CMAKE_SOURCE_DIR}/src
 )
 target_compile_features(tspsol PRIVATE c_std_11)
 target_link_libraries(tspsol PRIVATE
