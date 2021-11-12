@@ -33,9 +33,11 @@ if(NOT BUILD_EXAMPLES)
   return()
 endif()
 
-file(GLOB C_SRCS "*.c")
-list(FILTER C_SRCS EXCLUDE REGEX ".*/glpsol.c") # need input file
-list(FILTER C_SRCS EXCLUDE REGEX ".*/netgen.c") # no license
-foreach(FILE_NAME IN LISTS C_SRCS)
-  add_c_example(${FILE_NAME})
+include(examples)
+add_example_folder(${CMAKE_CURRENT_SOURCE_DIR})
+
+# get example subdirectories and add them
+SUBDIRLIST(SUBDIRS ${CMAKE_CURRENT_SOURCE_DIR})
+foreach(SUBDIR IN LISTS SUBDIRS)
+  add_subdirectory(${SUBDIR})
 endforeach()
