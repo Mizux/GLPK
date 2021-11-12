@@ -25,26 +25,49 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${RELATIVE_DIR})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${RELATIVE_DIR})
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${RELATIVE_DIR})
 
-file(GLOB TEST_FILES "*.c" LIST_DIRECTORIES false)
-list(FILTER TEST_FILES EXCLUDE REGEX ".*/main.c") # executable
-list(FILTER TEST_FILES EXCLUDE REGEX ".*/tsplib.c") # dependent
-foreach(TEST_FILE IN LISTS TEST_FILES)
-    if(NOT (IS_DIRECTORY ${TEST_FILE})) # `LIST_DIRECTORIES false` not reliable
-        get_filename_component(TEST_TARGET_NAME ${TEST_FILE} NAME_WE)
-        add_library(${TEST_TARGET_NAME} ${TEST_FILE})
-        target_include_directories(
-                ${TEST_TARGET_NAME}
-                PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
-                )
-        target_compile_features(${TEST_TARGET_NAME} PRIVATE c_std_11)
-        target_link_libraries(${TEST_TARGET_NAME} PRIVATE
-                ${PROJECT_NAMESPACE}::GLPK
-                $<$<NOT:$<C_COMPILER_ID:MSVC>>:m>)
-        add_library(${PROJECT_NAMESPACE}::${TEST_TARGET_NAME} ALIAS ${TEST_TARGET_NAME})
-        install(TARGETS ${TEST_TARGET_NAME})
-        set_target_properties(${TEST_TARGET_NAME} PROPERTIES PREFIX "")
-    endif()
-endforeach()
+add_library(maxflow maxflow.c)
+target_include_directories(
+        maxflow
+        PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+)
+target_compile_features(maxflow PRIVATE c_std_11)
+target_link_libraries(maxflow PRIVATE
+        ${PROJECT_NAMESPACE}::GLPK
+        $<$<NOT:$<C_COMPILER_ID:MSVC>>:m>)
+add_library(${PROJECT_NAMESPACE}::maxflow ALIAS maxflow)
+install(TARGETS maxflow)
+
+set_target_properties(maxflow PROPERTIES PREFIX "")
+
+add_library(mincut mincut.c)
+target_include_directories(
+        mincut
+        PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+)
+target_compile_features(mincut PRIVATE c_std_11)
+target_link_libraries(mincut PRIVATE
+        ${PROJECT_NAMESPACE}::GLPK
+        ${PROJECT_NAMESPACE}::maxflow
+        $<$<NOT:$<C_COMPILER_ID:MSVC>>:m>)
+add_library(${PROJECT_NAMESPACE}::mincut ALIAS mincut)
+install(TARGETS mincut)
+
+set_target_properties(mincut PROPERTIES PREFIX "")
+
+
+add_library(misc misc.c)
+target_include_directories(
+        misc
+        PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+)
+target_compile_features(misc PRIVATE c_std_11)
+target_link_libraries(misc PRIVATE
+        ${PROJECT_NAMESPACE}::GLPK
+        $<$<NOT:$<C_COMPILER_ID:MSVC>>:m>)
+add_library(${PROJECT_NAMESPACE}::misc ALIAS misc)
+install(TARGETS misc)
+
+set_target_properties(misc PROPERTIES PREFIX "")
 
 add_library(tsplib tsplib.c)
 target_include_directories(
