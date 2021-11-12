@@ -71,13 +71,6 @@ option(BUILD_EXAMPLES "Build examples" ON)
 message(STATUS "Build examples: ${BUILD_EXAMPLES}")
 add_subdirectory(examples)
 
-find_package(GMP)
-if(GMP_FOUND)
-  target_link_libraries(GLPK PRIVATE GMP::gmp)
-else()
-  message(WARNING "gmp.h/libgmp not found")
-endif()
-
 option(ODBC "enable MathProg ODBC support" OFF)
 if(ODBC)
   find_package(ODBC)
