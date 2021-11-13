@@ -129,6 +129,7 @@ if(IS_REENTRANT)
   elseif (CMAKE_C_COMPILER_ID STREQUAL "MSVC")
     set(TLS "__declspec(thread)")
   else()
+    message(WARNING "compiler-specific spec for thread local storage not found; if your build breaks, set 'IS_REENTRANT' option to 'OFF'")
     set(TLS "_Thread_local") # default to C11 standard, may break some builds if thread local storage isn't supported
   endif()
   target_compile_definitions(GLPK PUBLIC TLS=${TLS})
