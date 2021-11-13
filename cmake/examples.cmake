@@ -22,7 +22,14 @@ function(add_example_folder EXAMPLE_SRC_DIRECTORY)
             add_c_test(${FILE_NAME})
         endif()
     endforeach()
+    configure_example_data(${EXAMPLE_SRC_DIRECTORY})
+endfunction()
 
+function(configure_example_data EXAMPLE_SRC_DIRECTORY)
+    #get example dir relative to source root
+    string(REPLACE ${CMAKE_SOURCE_DIR} "" EXAMPLE_RELATIVE_DIR ${EXAMPLE_SRC_DIRECTORY})
+    #remove any leading slash
+    string(REGEX REPLACE "^[/|\\]+" "" EXAMPLE_RELATIVE_DIR ${EXAMPLE_RELATIVE_DIR})
     # copy example data to build output folder
     # using `configure_file` creates a data dependence
     # i.e. changes in the example data will reflect in the output folder
