@@ -72,6 +72,7 @@ message(STATUS "Build examples: ${BUILD_EXAMPLES}")
 add_subdirectory(examples)
 
 option(ODBC "enable MathProg ODBC support" OFF)
+message(STATUS "enable MathProg ODBC support: ${ODBC}")
 if(ODBC)
   find_package(ODBC)
   if(ODBC_FOUND)
@@ -105,6 +106,7 @@ endif()
 
 include(CMakeDependentOption)
 cmake_dependent_option(MYSQL "enable MathProg MySQL support" OFF "BUILD_SHARED_LIBS" OFF)
+message(STATUS "enable MathProg MySQL support: ${MYSQL}")
 if(MYSQL)
   find_package(MySQL)
   if(MYSQL_FOUND)
@@ -116,6 +118,7 @@ if(MYSQL)
 endif()
 
 option(IS_REENTRANT "enable reentrancy support" ON)
+message(STATUS "enable reentrancy support: ${IS_REENTRANT}")
 if(IS_REENTRANT)
   if (
   (CMAKE_C_COMPILER_ID MATCHES "Clang") OR # matches AppleClang and Clang
