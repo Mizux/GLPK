@@ -92,7 +92,7 @@ if(ODBC)
       message(FATAL_ERROR "Could not run 'odbc-config --cflags' or 'iodbc-config --cflags'")
     endif()
     string(REGEX MATCH "/[^/\\]+$/gm" ODBC_LIB_NAME "${ODBC_LIBRARIES}") # regexr.com/698ls strips the preceding path from the actual lib name
-    if (GMP_LIB_NAME)
+    if (ODBC_LIB_NAME)
       target_compile_definitions(GLPK PUBLIC ODBC_DLNAME=${ODBC_LIB_NAME})
       target_link_libraries(GLPK PRIVATE ODBC::ODBC)
     else()
