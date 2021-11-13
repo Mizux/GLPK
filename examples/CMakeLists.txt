@@ -15,6 +15,8 @@ add_executable(${PROJECT_NAMESPACE}::glpsol ALIAS glpsol)
 install(TARGETS glpsol
   EXPORT ${PROJECT_NAME}Targets)
 
+add_subdirectory(tsp)
+
 # GPSOL tests
 add_test(
         NAME
@@ -38,6 +40,7 @@ add_example_folder(${CMAKE_CURRENT_SOURCE_DIR})
 
 # get example subdirectories and add them
 SUBDIRLIST(SUBDIRS ${CMAKE_CURRENT_SOURCE_DIR})
+list(REMOVE_ITEM SUBDIRS "tsp") # already added
 foreach(SUBDIR IN LISTS SUBDIRS)
   add_subdirectory(${SUBDIR})
 endforeach()
