@@ -123,5 +123,5 @@ foreach(EXAMPLE_DATA_FILE IN LISTS EXAMPLE_DATA_FILES)
 endforeach()
 
 if(BUILD_TESTING)
-    add_test(NAME tspsol_solve COMMAND tspsol "${CMAKE_BINARY_DIR}/${RELATIVE_DIR}/sample.tsp")
+    add_test(NAME tspsol_solve COMMAND tspsol "${CMAKE_BINARY_DIR}/${CMAKE_CFG_INTDIR}/${RELATIVE_DIR}/sample.tsp")
 endif()
