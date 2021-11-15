@@ -42,11 +42,6 @@ target_link_libraries(GLPK
   $<$<NOT:$<C_COMPILER_ID:MSVC>>:m>)
 add_library(${PROJECT_NAMESPACE}::GLPK ALIAS GLPK)
 
-add_custom_command(TARGET GLPK POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:GLPK> "${CMAKE_BINARY_DIR}/${CMAKE_CFG_INTDIR}/examples/cplex/$<TARGET_FILE_NAME:GLPK>"
-        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:GLPK> "${CMAKE_BINARY_DIR}/${CMAKE_CFG_INTDIR}/examples/tsp/$<TARGET_FILE_NAME:GLPK>"
-        )
-
 # check system libs functions and headers
 
 # define if windows environment
