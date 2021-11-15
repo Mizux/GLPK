@@ -83,7 +83,8 @@ function(add_c_example FILE_NAME)
   target_include_directories(${EXAMPLE_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
   target_compile_features(${EXAMPLE_NAME} PRIVATE c_std_11)
   target_link_libraries(${EXAMPLE_NAME} PRIVATE
-    ${PROJECT_NAMESPACE}::GLPK)
+    ${PROJECT_NAMESPACE}::GLPK
+    $<$<NOT:$<C_COMPILER_ID:MSVC>>:m>)
 
   include(GNUInstallDirs)
   install(TARGETS ${EXAMPLE_NAME})
