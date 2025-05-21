@@ -32,7 +32,7 @@ jobs:
           cmake -S. -Bbuild
           -G "${{matrix.cmake.generator}}"
           -DCMAKE_CONFIGURATION_TYPES=${{matrix.cmake.config}}
-          -DCMAKE_INSTALL_PREFIX=install
+          -DCMAKE_INSTALL_PREFIX=build_install
       - name: Build
         run: >
           cmake --build build
