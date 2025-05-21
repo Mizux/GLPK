@@ -31,13 +31,10 @@
 #ifndef MINISAT_H
 #define MINISAT_H
 
+#include <stdbool.h>
+
 /*====================================================================*/
 /* Simple types: */
-
-typedef int bool;
-
-#define true  1
-#define false 0
 
 typedef int  lit;
 #if 0 /* by mao */
