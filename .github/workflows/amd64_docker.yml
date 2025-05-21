@@ -1,37 +1,51 @@
+# ref: https://github.com/docker-library/official-images
 name: amd64 Docker
 
-on:
-  push:
-  pull_request:
-  schedule:
-    # min hours day(month) month day(week)
-    - cron: '0 0 7,22 * *'
+on: [push, pull_request, workflow_dispatch]
+
+concurrency:
+  group: ${{github.workflow}}-${{github.ref}}
+  cancel-in-progress: true
 
 jobs:
   Distros:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
-        distro: [alpine, archlinux, centos, debian, fedora, opensuse, ubuntu]
+        #platform: [amd64, arm64, riscv64]
+        platform: [amd64]
+        distro: [
+          almalinux,
+          alpine,
+          archlinux,
+          debian,
+          fedora,
+          opensuse,
+          rockylinux,
+          ubuntu]
       fail-fast: false
-    env:
-      DISTRO: ${{ matrix.distro }}
+    name: ${{matrix.platform}}•${{matrix.distro}}•CMake
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Build env image
-      run: make --directory=ci ${DISTRO}_env
-    - name: Build devel project
-      run: make --directory=ci ${DISTRO}_devel
-    - name: Build project
-      run: make --directory=ci ${DISTRO}_build
-    - name: Test project
-      run: make --directory=ci ${DISTRO}_test
+      - uses: actions/checkout@v4
+      - name: Check docker
+        run: |
+          docker version
+          docker info
+          docker buildx ls
+      - name: Build env image
+        run: make --directory=ci ${{matrix.platform}}_${{matrix.distro}}_env
+      - name: Build devel image
+        run: make --directory=ci ${{matrix.platform}}_${{matrix.distro}}_devel
+      - name: Build project
+        run: make --directory=ci ${{matrix.platform}}_${{matrix.distro}}_build
+      - name: Test project
+        run: make --directory=ci ${{matrix.platform}}_${{matrix.distro}}_test
 
-    - name: Build Install env image
-      run: make --directory=ci ${DISTRO}_install_env
-    - name: Build Install devel image
-      run: make --directory=ci ${DISTRO}_install_devel
-    - name: Build Install
-      run: make --directory=ci ${DISTRO}_install_build
-    - name: Test Install
-      run: make --directory=ci ${DISTRO}_install_test
+      - name: Build Install env image
+        run: make --directory=ci ${{matrix.platform}}_${{matrix.distro}}_install_env
+      - name: Build Install devel image
+        run: make --directory=ci ${{matrix.platform}}_${{matrix.distro}}_install_devel
+      - name: Build Install project
+        run: make --directory=ci ${{matrix.platform}}_${{matrix.distro}}_install_build
+      - name: Test Install project
+        run: make --directory=ci ${{matrix.platform}}_${{matrix.distro}}_install_test
