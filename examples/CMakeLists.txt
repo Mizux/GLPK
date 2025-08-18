@@ -15,13 +15,32 @@ add_executable(${PROJECT_NAMESPACE}::glpsol ALIAS glpsol)
 install(TARGETS glpsol
   EXPORT ${PROJECT_NAME}Targets)
 
+add_subdirectory(tsp)
+
+# GPSOL tests
+add_test(
+        NAME
+          glpsol_version
+        COMMAND
+          glpsol  --version
+)
+add_test(
+        NAME
+          glpsol_solve
+        COMMAND
+          glpsol --mps ${CMAKE_BINARY_DIR}/${CMAKE_CFG_INTDIR}/examples/murtagh.mps --max
+)
+
 if(NOT BUILD_EXAMPLES)
   return()
 endif()
 
-file(GLOB C_SRCS "*.c")
-list(FILTER C_SRCS EXCLUDE REGEX ".*/glpsol.c") # need input file
-list(FILTER C_SRCS EXCLUDE REGEX ".*/netgen.c") # no license
-foreach(FILE_NAME IN LISTS C_SRCS)
-  add_c_example(${FILE_NAME})
+include(examples)
+add_example_folder(${CMAKE_CURRENT_SOURCE_DIR})
+
+# get example subdirectories and add them
+SUBDIRLIST(SUBDIRS ${CMAKE_CURRENT_SOURCE_DIR})
+list(REMOVE_ITEM SUBDIRS "tsp") # already added
+foreach(SUBDIR IN LISTS SUBDIRS)
+  add_subdirectory(${SUBDIR})
 endforeach()
