@@ -32,7 +32,7 @@
  */
 
 #include <glpk.h>
-#include <malloc.h>
+//#include <malloc.h> //deprecated, use stdlib.h
 #include <setjmp.h>
 #include <stdio.h>
 #include <stdlib.h>
